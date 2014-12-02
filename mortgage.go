@@ -1,7 +1,5 @@
 package main
 
-// Better formatting of numbers
-
 import (
 	"fmt"
 	"math"
@@ -21,7 +19,7 @@ func balance(L Money, n int, c float64, p int, extra Money) Money {
 	// XXX wow, this is a lot of casts! Is there a cleaner way?
 	bal := (float64(L)*(math.Pow(1+c, nf)-math.Pow(1+c, pf))/
 		(math.Pow(1+c, nf)-1) - pf*float64(extra))
-	// Round to 2 decimal places
+	// Round to 2 decimal places   XXX is there a built-in func?
 	bal = math.Trunc(bal*100) / 100
 	bal = math.Max(bal, 0.0)
 	return Money(bal)
@@ -81,26 +79,26 @@ func main() {
 		amortization[i] = balance(L, n, c, i, extra)
 	}
 
-	fmt.Println("Months to payoff=", time_to_payoff(amortization))
+	fmt.Printf("Months to payoff= %d\n", time_to_payoff(amortization))
 	total_int := total_interest(payment, amortization)
 	total_paid := L + total_int
-	fmt.Println("Interest paid over lifetime=", total_int)
-	fmt.Println("Total paid=", total_paid)
+	fmt.Printf("Interest paid over lifetime=\t $%.2f\n", total_int)
+	fmt.Printf("Total paid=\t\t\t $%.2f\n", total_paid)
 
 	fmt.Println("Month\tPrincipal\t%")
-	var star string;
+	var star string
 	month := "Sep"
 	year := 2013
 
 	for i := 0; i < len(amortization); i++ {
-		if (i + 1 == current_month) {
+		if i+1 == current_month {
 			star = "*"
 		} else {
 			star = " "
 		}
 
-		fmt.Println(i+1, "\t", amortization[i], "\t",
-			amortization[i] / L * 100, "\t", star, month, year)
+		fmt.Printf("%d\t%9.2f\t%.2f\t%s %s %d\n", i+1, amortization[i],
+			amortization[i]/L*100, star, month, year)
 
 		// Increment to next month, and increase the year if necessary.
 		index := find(MONTHS, month)
@@ -108,6 +106,11 @@ func main() {
 		month = MONTHS[index]
 		if index == 0 {
 			year += 1
+		}
+
+		// Exit early if balance has reached zero.
+		if amortization[i] == 0 {
+			break
 		}
 	}
 

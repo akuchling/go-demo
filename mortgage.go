@@ -14,11 +14,14 @@ type Money float64
 type AmortizationSched []Money
 
 func balance(L Money, n int, c float64, p int, extra Money) Money {
+	// XXX wow, this is a lot of casts! Is there a cleaner way?
+	// Probably not.  Doing all these conversions before the
+	// computation of 'bal' at least keeps the calculation
+	// cleaner.
 	nf := float64(n)
 	pf := float64(p)
 	Lf := float64(L)
-	extraf := float64(extra);
-	// XXX wow, this is a lot of casts! Is there a cleaner way?
+	extraf := float64(extra)
 	bal := (Lf*(math.Pow(1+c, nf)-math.Pow(1+c, pf))/
 		(math.Pow(1+c, nf)-1) - pf*extraf)
 	// Round to 2 decimal places
@@ -109,7 +112,7 @@ func main() {
 		// Increment to next month, and increase the year if necessary.
 		index := find(MONTHS, month)
 		if index == -1 {
-			panic("Unexpected month name: " + month);
+			panic("Unexpected month name: " + month)
 		}
 		index = (index + 1) % len(MONTHS)
 		month = MONTHS[index]

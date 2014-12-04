@@ -65,8 +65,8 @@ func find(haystack []string, needle string) int {
 			return i
 		}
 	}
-	// XXX this should probably signal an error
-	return len(haystack)
+	// Returns -1 for 'not found'.
+	return -1
 }
 
 func main() {
@@ -108,6 +108,9 @@ func main() {
 
 		// Increment to next month, and increase the year if necessary.
 		index := find(MONTHS, month)
+		if index == -1 {
+			panic("Unexpected month name: " + month);
+		}
 		index = (index + 1) % len(MONTHS)
 		month = MONTHS[index]
 		if index == 0 {

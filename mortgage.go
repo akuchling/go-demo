@@ -16,10 +16,13 @@ type AmortizationSched []Money
 func balance(L Money, n int, c float64, p int, extra Money) Money {
 	nf := float64(n)
 	pf := float64(p)
+	Lf := float64(L)
+	extraf := float64(extra);
 	// XXX wow, this is a lot of casts! Is there a cleaner way?
-	bal := (float64(L)*(math.Pow(1+c, nf)-math.Pow(1+c, pf))/
-		(math.Pow(1+c, nf)-1) - pf*float64(extra))
-	// Round to 2 decimal places   XXX is there a built-in func?
+	bal := (Lf*(math.Pow(1+c, nf)-math.Pow(1+c, pf))/
+		(math.Pow(1+c, nf)-1) - pf*extraf)
+	// Round to 2 decimal places
+	// (Apparently there's no built-in function for rounding.)
 	bal = math.Trunc(bal*100) / 100
 	bal = math.Max(bal, 0.0)
 	return Money(bal)

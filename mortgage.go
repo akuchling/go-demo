@@ -6,7 +6,7 @@ import (
 )
 
 var (
-	MONTHS = [...]string{"Jan", "Feb", "Mar", "Apr", "May", "Jun",
+	MONTHS = []string{"Jan", "Feb", "Mar", "Apr", "May", "Jun",
 		"Jul", "Aug", "Sep", "Oct", "Nov", "Dec"}
 )
 
@@ -54,9 +54,12 @@ func total_interest(P Money, amortization AmortizationSched) Money {
 	return total
 }
 
-// XXX is there a Go built-in for this purpose?
-// XXX how do I make this work on slices of arbitrary size?
-func find(haystack [12]string, needle string) int {
+// Q. is there a Go built-in for this purpose?  Answer: no, apparently not.
+// See http://stackoverflow.com/questions/8307478/go-how-to-find-out-element-position-in-slice.
+// Q. how do I make this work on slices of arbitrary size?
+// A. I had MONTHS defined as an array: [...]string{<stuff>}.  This is a
+// different type from a slice of strings.
+func find(haystack []string, needle string) int {
 	for i := 0; i < len(haystack); i++ {
 		if needle == haystack[i] {
 			return i

@@ -16,8 +16,25 @@ import (
 	"unicode/utf8"
 )
 
+func runetype(r rune) string {
+   if unicode.IsDigit(r) {
+      return "digit"
+   } else if unicode.IsLower(r) {
+      return "lowercase letter"
+   } else if unicode.IsUpper(r) {
+      return "uppercase letter"
+   } else if unicode.IsSpace(r) {
+      return "whitespace"
+   } else if unicode.IsPunct(r) {
+      return "punctuation"
+   } else {
+      return "unknown"
+   }
+}
+
 func main() {
 	counts := make(map[rune]int)    // counts of Unicode characters
+	categorycount := make(map[string]int)
 	var utflen [utf8.UTFMax + 1]int // count of lengths of UTF-8 encodings
 	invalid := 0                    // count of invalid UTF-8 characters
 
@@ -36,6 +53,7 @@ func main() {
 			continue
 		}
 		counts[r]++
+		categorycount[runetype(r)]++
 		utflen[n]++
 	}
 	fmt.Printf("rune\tcount\n")
@@ -47,6 +65,10 @@ func main() {
 		if i > 0 {
 			fmt.Printf("%d\t%d\n", i, n)
 		}
+	}
+	fmt.Print("\ntype\tcount\n")
+	for s, n := range categorycount {
+		fmt.Printf("%s\t%d\n", s, n)
 	}
 	if invalid > 0 {
 		fmt.Printf("\n%d invalid UTF-8 characters\n", invalid)

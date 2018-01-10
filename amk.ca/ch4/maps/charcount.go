@@ -17,23 +17,23 @@ import (
 )
 
 func runetype(r rune) string {
-   if unicode.IsDigit(r) {
-      return "digit"
-   } else if unicode.IsLower(r) {
-      return "lowercase letter"
-   } else if unicode.IsUpper(r) {
-      return "uppercase letter"
-   } else if unicode.IsSpace(r) {
-      return "whitespace"
-   } else if unicode.IsPunct(r) {
-      return "punctuation"
-   } else {
-      return "unknown"
-   }
+	if unicode.IsDigit(r) {
+		return "digit"
+	} else if unicode.IsLower(r) {
+		return "lowercase letter"
+	} else if unicode.IsUpper(r) {
+		return "uppercase letter"
+	} else if unicode.IsSpace(r) {
+		return "whitespace"
+	} else if unicode.IsPunct(r) {
+		return "punctuation"
+	} else {
+		return "unknown"
+	}
 }
 
 func main() {
-	counts := make(map[rune]int)    // counts of Unicode characters
+	counts := make(map[rune]int) // counts of Unicode characters
 	categorycount := make(map[string]int)
 	var utflen [utf8.UTFMax + 1]int // count of lengths of UTF-8 encodings
 	invalid := 0                    // count of invalid UTF-8 characters

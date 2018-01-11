@@ -1,0 +1,6 @@
+
+Usage:
+
+1) generate initial data set with:
+
+   go run retrieve.go > xkcd.json

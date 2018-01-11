@@ -21,8 +21,8 @@ func main() {
 	var cartoons []XKCDCartoon
 
 	for i := 1; i <= TOTAL; i++ {
-		url := "https://www.xkcd.com/" + strconv.Itoa(i)
-		resp, err := http.Get(url + "/info.0.json")
+		url := "https://www.xkcd.com/" + strconv.Itoa(i) + "/"
+		resp, err := http.Get(url + "info.0.json")
 		if err != nil {
 			log.Fatalf("Error retrieving cartoon #%d: %s", i, err)
 		}

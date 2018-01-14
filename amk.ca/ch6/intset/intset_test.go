@@ -117,3 +117,13 @@ func TestCopy(t *testing.T) {
 	// 0
 
 }
+
+func TestAddAll(t *testing.T) {
+	var x IntSet
+
+	x.AddAll(17, 117, 249)
+	fmt.Println(x.Len())
+
+	// Output:
+	// 3
+}

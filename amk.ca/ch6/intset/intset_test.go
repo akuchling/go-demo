@@ -123,7 +123,9 @@ func TestAddAll(t *testing.T) {
 
 	x.AddAll(17, 117, 249)
 	fmt.Println(x.Len())
+	fmt.Println(x.String())
 
 	// Output:
 	// 3
+	// {17 117 249}
 }

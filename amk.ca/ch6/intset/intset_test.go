@@ -129,3 +129,13 @@ func TestAddAll(t *testing.T) {
 	// 3
 	// {17 117 249}
 }
+
+func TestElems(t *testing.T) {
+	var x IntSet
+
+	x.AddAll(17, 432, 117, 249)
+	fmt.Println(x.Elems())
+
+	// Output:
+	// [17 117 249 432]
+}

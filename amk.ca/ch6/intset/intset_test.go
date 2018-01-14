@@ -72,10 +72,10 @@ func TestLen(t *testing.T) {
 	// 0
 }
 
-func TestRemove(t *testing.T) {
+func TestRemoveClear(t *testing.T) {
 	var x IntSet
-	for i := 0 ; i < 277; i++ {
-	    x.Add(i)
+	for i := 0; i < 277; i++ {
+		x.Add(i)
 	}
 	fmt.Println(x.Len())
 
@@ -90,5 +90,30 @@ func TestRemove(t *testing.T) {
 	// 276
 	// 0
 	// {[]}
+
+}
+
+func TestCopy(t *testing.T) {
+	var x IntSet
+	for i := 0; i < 277; i++ {
+		x.Add(i)
+	}
+	fmt.Println(x.Len())
+
+	y := x.Copy()
+	x.Remove(1)
+	fmt.Println(x.Len())
+	fmt.Println(y.Len())
+
+	y.Clear()
+	fmt.Println(x.Len())
+	fmt.Println(y.Len())
+
+	// Output:
+	// 277
+	// 276
+	// 277
+	// 276
+	// 0
 
 }

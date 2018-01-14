@@ -75,7 +75,7 @@ func (s *IntSet) Len() uint {
 func (s *IntSet) Remove(x int) {
 	word, bit := x/64, uint(x%64)
 	if word < len(s.words) {
-	    s.words[word] &= ^(1 << bit)
+		s.words[word] &= ^(1 << bit)
 	}
 }
 
@@ -85,8 +85,11 @@ func (s *IntSet) Clear() {
 }
 
 // Return a copy of the set
-func (s *IntSet) Copy() *IntSet {
-	sc := IntSet{words: (*s).words}
+func (s IntSet) Copy() *IntSet {
+	sc := IntSet{}
+	for i := 0; i < len(s.words); i++ {
+		sc.words = append(sc.words, s.words[i])
+	}
 	return &sc
 }
 

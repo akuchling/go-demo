@@ -73,6 +73,10 @@ func (s *IntSet) Len() uint {
 
 // Remove an item
 func (s *IntSet) Remove(x int) {
+	word, bit := x/64, uint(x%64)
+	if word < len(s.words) {
+	    s.words[word] &= ^(1 << bit)
+	}
 }
 
 // Clear out the set

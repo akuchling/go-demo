@@ -71,3 +71,24 @@ func TestLen(t *testing.T) {
 	// 3
 	// 0
 }
+
+func TestRemove(t *testing.T) {
+	var x IntSet
+	for i := 0 ; i < 277; i++ {
+	    x.Add(i)
+	}
+	fmt.Println(x.Len())
+
+	x.Remove(1)
+	fmt.Println(x.Len())
+	x.Clear()
+	fmt.Println(x.Len())
+	fmt.Println(x)
+
+	// Output:
+	// 277
+	// 276
+	// 0
+	// {[]}
+
+}

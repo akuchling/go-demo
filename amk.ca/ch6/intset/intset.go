@@ -47,6 +47,45 @@ func (s *IntSet) UnionWith(t *IntSet) {
 
 //!-intset
 
+// Length calculation
+func countBits(word uint64) uint {
+	var result uint
+	for word > 0 {
+		if (word % 2) == 1 {
+			result++
+		}
+		word = word >> 1
+	}
+	return result
+}
+
+func (s *IntSet) Len() uint {
+	var result uint = 0
+
+	if s != nil {
+		for _, word := range s.words {
+			result += countBits(word)
+		}
+	}
+
+	return result
+}
+
+// Remove an item
+func (s *IntSet) Remove(x int) {
+}
+
+// Clear out the set
+func (s *IntSet) Clear() {
+	(*s).words = nil
+}
+
+// Return a copy of the set
+func (s *IntSet) Copy() *IntSet {
+	sc := IntSet{words: (*s).words}
+	return &sc
+}
+
 //!+string
 
 // String returns the set as a string of the form "{1 2 3}".
